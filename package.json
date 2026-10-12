@@ -2,16 +2,35 @@
   "name": "business-operations-automation-system",
   "version": "0.1.0",
   "private": true,
+  "imports": {
+    "@/*": "./*"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "node --experimental-strip-types scripts/test-invariants.ts",
+    "test:intake": "node --experimental-strip-types scripts/test-intake-api.ts",
+    "test:milestone3": "node --experimental-strip-types scripts/test-assignment-and-state-machine.ts",
+    "test:milestone4": "node --experimental-strip-types scripts/test-milestone-4-tasks.ts",
+    "test:milestone5": "node --experimental-strip-types scripts/test-milestone-5-ai.ts",
+    "test:milestone6": "node --experimental-strip-types scripts/test-milestone-6-workflows.ts",
+    "test:milestone7": "node --experimental-strip-types scripts/test-milestone-7-approvals.ts",
+    "test:milestone8": "node --experimental-strip-types scripts/test-milestone-8-sla.ts",
+    "test:milestone9": "node --experimental-strip-types scripts/test-milestone-9-reliability.ts",
+    "test:e2e": "node --experimental-strip-types scripts/test-milestone-10-e2e.ts",
+    "test:milestone10": "node --experimental-strip-types scripts/test-milestone-10-e2e.ts",
+    "evaluate:ai": "node --experimental-strip-types scripts/evaluate-ai-classifier.ts",
+    "seed": "node --experimental-strip-types scripts/seed.ts",
+    "db:rls": "node --experimental-strip-types scripts/enable-rls.ts"
   },
   "dependencies": {
+    "@prisma/client": "6.4.1",
     "next": "16.4.0",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",
@@ -20,6 +39,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.0",
+    "prisma": "6.4.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

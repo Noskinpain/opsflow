@@ -1,0 +1,27 @@
+import { NextRequest } from 'next/server';
+import { RequestService } from '@/lib/services/request-service';
+import { handleApiError, jsonResponse } from '@/lib/api-response';
+
+interface RouteContext {
+  params: Promise<{ id: string }>;
+}
+
+export async function PATCH(req: NextRequest, context: RouteContext) {
+  try {
+    const { id } = await context.params;
+    const body = await req.json();
+
+    const assignedUserId = body.assignedTo || body.assigned_to;
+    const actorId = body.actorId || body.actor_id;
+
+    const updated = await RequestService.assignRequest(
+      id,
+      assignedUserId,
+      actorId
+    );
+
+    return jsonResponse(updated);
+  } catch (error) {
+    return handleApiError(error);
+  }
+}
