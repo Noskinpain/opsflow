@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { IdempotencyService } from '@/lib/reliability/idempotency.ts';
-import { WorkflowEngine } from '@/lib/workflows/engine.ts';
-import { TaskService } from '@/lib/services/task-service.ts';
-import { RequestService } from '@/lib/services/request-service.ts';
+import { IdempotencyService } from '@/lib/reliability/idempotency';
+import { WorkflowEngine } from '@/lib/workflows/engine';
+import { TaskService } from '@/lib/services/task-service';
+import { RequestService } from '@/lib/services/request-service';
 import { TaskStatus, RequestStatus } from '@prisma/client';
 
 const eventSchema = z.object({

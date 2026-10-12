@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma.ts';
-import { RequestService } from '@/lib/services/request-service.ts';
-import { TaskService } from '@/lib/services/task-service.ts';
-import { SlaService } from '@/lib/services/sla-service.ts';
+import { prisma } from '@/lib/prisma';
+import { RequestService } from '@/lib/services/request-service';
+import { TaskService } from '@/lib/services/task-service';
+import { SlaService } from '@/lib/services/sla-service';
 import { Priority, TaskStatus, UserRole } from '@prisma/client';
 
 export async function GET(req: NextRequest) {

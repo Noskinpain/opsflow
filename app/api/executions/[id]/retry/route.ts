@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { WorkflowEngine } from '@/lib/workflows/engine.ts';
+import { WorkflowEngine } from '@/lib/workflows/engine';
 
 export async function POST(
   req: NextRequest,

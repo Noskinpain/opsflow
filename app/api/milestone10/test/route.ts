@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma.ts';
-import { RequestService } from '@/lib/services/request-service.ts';
-import { TaskService } from '@/lib/services/task-service.ts';
-import { ApprovalService } from '@/lib/services/approval-service.ts';
-import { ClosedRequestModificationError } from '@/lib/errors.ts';
-import { WorkflowEngine } from '@/lib/workflows/engine.ts';
-import { AiClassifierService } from '@/lib/services/ai-classifier-service.ts';
-import { AnalyticsService } from '@/lib/services/analytics-service.ts';
-import { IdempotencyService } from '@/lib/reliability/idempotency.ts';
+import { prisma } from '@/lib/prisma';
+import { RequestService } from '@/lib/services/request-service';
+import { TaskService } from '@/lib/services/task-service';
+import { ApprovalService } from '@/lib/services/approval-service';
+import { ClosedRequestModificationError } from '@/lib/errors';
+import { WorkflowEngine } from '@/lib/workflows/engine';
+import { AiClassifierService } from '@/lib/services/ai-classifier-service';
+import { AnalyticsService } from '@/lib/services/analytics-service';
+import { IdempotencyService } from '@/lib/reliability/idempotency';
 import { UserRole, RequestStatus, ApprovalStatus, ApprovalDecision, TaskStatus, Priority } from '@prisma/client';
 
 export async function GET(req: NextRequest) {

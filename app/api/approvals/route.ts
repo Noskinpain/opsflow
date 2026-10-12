@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { prisma } from '@/lib/prisma.ts';
+import { prisma } from '@/lib/prisma';
 import { handleApiError, jsonResponse } from '@/lib/api-response';
 import { ApprovalStatus } from '@prisma/client';
 

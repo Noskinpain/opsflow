@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma.ts';
-import { ExecutionService } from '@/lib/services/execution-service.ts';
+import { prisma } from '@/lib/prisma';
+import { ExecutionService } from '@/lib/services/execution-service';
 
 export async function GET(req: NextRequest) {
   try {

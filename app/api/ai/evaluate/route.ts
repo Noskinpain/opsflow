@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { runAiEvaluation } from '@/scripts/evaluate-ai-classifier.ts';
+import { runAiEvaluation } from '@/scripts/evaluate-ai-classifier';
 
 export async function GET() {
   try {

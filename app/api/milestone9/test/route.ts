@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma.ts';
-import { isRetryableError, withRetry } from '@/lib/reliability/retry.ts';
-import { IdempotencyService } from '@/lib/reliability/idempotency.ts';
-import { ExecutionService } from '@/lib/services/execution-service.ts';
-import { ApprovalService, ApprovalAlreadyDecidedError } from '@/lib/services/approval-service.ts';
-import { WorkflowEngine } from '@/lib/workflows/engine.ts';
-import { RequestService } from '@/lib/services/request-service.ts';
+import { prisma } from '@/lib/prisma';
+import { isRetryableError, withRetry } from '@/lib/reliability/retry';
+import { IdempotencyService } from '@/lib/reliability/idempotency';
+import { ExecutionService } from '@/lib/services/execution-service';
+import { ApprovalService, ApprovalAlreadyDecidedError } from '@/lib/services/approval-service';
+import { WorkflowEngine } from '@/lib/workflows/engine';
+import { RequestService } from '@/lib/services/request-service';
 import { UserRole, RequestStatus, ApprovalStatus } from '@prisma/client';
 
 export async function GET(req: NextRequest) {

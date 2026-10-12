@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { SlaService } from '@/lib/services/sla-service.ts';
+import { SlaService } from '@/lib/services/sla-service';
 
 export async function GET() {
   try {
