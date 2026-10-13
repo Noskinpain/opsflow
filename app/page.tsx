@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { ProfileSelectionScreen } from '@/components/ProfileSelectionScreen';
 import { BusinessOnboardingModal } from '@/components/BusinessOnboardingModal';
+import { LandingPage } from '@/components/LandingPage';
 import { CompanyConfig, DEFAULT_COMPANY_CONFIG } from '@/components/onboarding-types';
 
 // ============================================================================
@@ -168,6 +169,9 @@ const getPriorityBadge = (priority: string) => {
 };
 
 export default function AutomationSystemDashboard() {
+  // Navigation & View Mode: landing page vs. operational testbed workspace
+  const [viewMode, setViewMode] = useState<'landing' | 'workspace'>('landing');
+
   // Business Onboarding & Profile Selection State
   const [companyConfig, setCompanyConfig] = useState<CompanyConfig>(DEFAULT_COMPANY_CONFIG);
   const [isSelectingProfile, setIsSelectingProfile] = useState(false);
@@ -676,6 +680,49 @@ export default function AutomationSystemDashboard() {
     });
   };
 
+  // Dedicated Landing Page: High-signal testbed introduction before workspace entry
+  if (viewMode === 'landing') {
+    return (
+      <>
+        <LandingPage
+          companyConfig={companyConfig}
+          activeUser={
+            activeUser
+              ? { name: activeUser.name, role: activeUser.role, department: activeUser.department }
+              : null
+          }
+          onEnterWorkspace={() => {
+            if (!companyConfig.companyName) {
+              setShowOnboardingModal(true);
+            } else {
+              setViewMode('workspace');
+            }
+          }}
+          onOpenSetup={() => setShowOnboardingModal(true)}
+        />
+        {showOnboardingModal && (
+          <BusinessOnboardingModal
+            currentConfig={companyConfig}
+            currentUsers={users}
+            isOpen={showOnboardingModal}
+            onClose={() => setShowOnboardingModal(false)}
+            onResetWorkspace={handleResetWorkspace}
+            onSave={(newCfg, updatedUsers) => {
+              setCompanyConfig(newCfg);
+              setUsers(updatedUsers);
+              setShowOnboardingModal(false);
+              setNotification({
+                type: 'success',
+                message: `Workspace configured for ${newCfg.companyName}.`,
+              });
+              setViewMode('workspace');
+            }}
+          />
+        )}
+      </>
+    );
+  }
+
   // Dedicated Profile Selection Screen (Log-out & switch persona flow without auth friction)
   if (isSelectingProfile) {
     return (
@@ -861,6 +908,23 @@ export default function AutomationSystemDashboard() {
               ))}
             </nav>
           </div>
+
+          {/* Guide & Landing Page quick link */}
+          <div className="pt-2 border-t border-zinc-200/60 mt-2 px-1">
+            <button
+              type="button"
+              onClick={() => setViewMode('landing')}
+              className={`w-full flex items-center ${
+                sidebarCollapsed ? 'justify-center p-2' : 'space-x-2 px-2.5 py-1.5'
+              } rounded-lg text-xs text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100/70 transition cursor-pointer`}
+              title="View Operations Testbed Guide & Purpose"
+            >
+              <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {!sidebarCollapsed && <span className="tracking-tight">Testbed Guide</span>}
+            </button>
+          </div>
         </div>
 
         {/* Sidebar Footer: Acting Persona Switcher (Fixed at bottom) */}
@@ -959,6 +1023,16 @@ export default function AutomationSystemDashboard() {
               <span className="text-[9px] font-mono text-zinc-400 bg-zinc-100 border border-zinc-200/60 rounded px-1 py-0.5 ml-1">
                 Switch
               </span>
+            </button>
+
+            {/* Testbed Overview / Guide Button */}
+            <button
+              type="button"
+              onClick={() => setViewMode('landing')}
+              className="hidden lg:flex items-center space-x-1 px-2.5 py-1.5 rounded-lg border border-zinc-200 bg-white hover:bg-zinc-50 text-zinc-700 text-xs font-medium cursor-pointer shadow-xs transition"
+              title="Return to Testbed Overview & Architecture Guide"
+            >
+              <span>Guide</span>
             </button>
 
             {/* Quick Setup Button */}
